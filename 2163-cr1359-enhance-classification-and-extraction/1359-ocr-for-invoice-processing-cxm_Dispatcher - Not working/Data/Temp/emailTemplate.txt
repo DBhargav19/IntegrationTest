@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body style="font-family: Arial, sans-serif;">
+
+        <p style="color: #333;">**** Please note this is not a monitored email account. DO NOT REPLY ****</p>
+	
+        <p style="color: #333;">Dear Supplier,</p>
+
+        <p>We appreciate your business!</p>
+
+        <p>This is an automated email to inform you that the Invoice Automation has processed a PDF attachment from the following email and encountered the following exception:</p>
+
+        <p style="color: red;">
+            {{ExceptionMessage}}
+        </p>
+
+        <p>Please note that any invoices that do not comply with the criteria above may result in delayed payment.</p>
+
+        <p>Our goal is to improve supplier communications, ensure timely payments and resolve any discrepancies that may arise in a timely manner. We aim to pay all invoices on time, provided they are valid and comply with our processing requirements. All invoices should be billed to <strong>Merkle Inc.</strong></p>
+
+        <p><strong>Invoices:</strong> All Dentsu CXM (Merkle Inc) invoices to: <a href="mailto:USCXM.APInvoices@dentsu.com">USCXM.APInvoices@dentsu.com</a></p>
+
+        <p><strong>Statements:</strong> Send monthly statements to: <a href="mailto:Supplierstatements@dentsu.com">Supplierstatements@dentsu.com</a></p>
+
+        <p>If you need to raise any queries, please contact us via the Help Desk email address <strong>ONLY:</strong> <a href="mailto:USCXM.APqueries@dentsu.com">USCXM.APqueries@dentsu.com</a>.</p>
+
+        <p>Cheers!</p>
+        <p>CXM AP Team</p>
+
+</body>
+</html>

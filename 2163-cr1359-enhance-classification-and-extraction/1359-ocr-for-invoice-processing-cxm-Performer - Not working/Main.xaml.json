@@ -1,0 +1,33 @@
+{
+  "DisplayName": "Main",
+  "Tooltip": null,
+  "HelpLink": null,
+  "Color": null,
+  "OriginalIconFileName": null,
+  "Arguments": [
+    {
+      "Name": "in_TargetFile",
+      "DisplayName": "in_TargetFile",
+      "Category": null,
+      "Tooltip": "The file path of the target document that is going to be processed.",
+      "Placeholder": "C:\\Users\\aditya.jain\\Documents\\Projects\\Dentsu\\Docs\\Invoices\\V00024US31 Acquia Inc., SI-59023.pdf",
+      "Widget": null,
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    },
+    {
+      "Name": "in_UseQueue",
+      "DisplayName": "in_UseQueue",
+      "Category": null,
+      "Tooltip": "Variable that checks if the Document Understanding Process is using Orchestrator Queues or not.",
+      "Placeholder": "False",
+      "Widget": null,
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    }
+  ]
+}
