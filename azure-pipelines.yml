@@ -17,3 +17,13 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+- task: UiPathPack@4
+  inputs:
+    versionType: 'AutoVersion'
+    projectJsonPath: '''$(Build.SourcesDirectory)'
+    outputPath: '$(Build.ArtifactStagingDirectory)\Output'
+- task: UiPathDeploy@4
+  inputs:
+    orchestratorConnection: 'AzureCICD'
+    packagesPath: '$(Build.ArtifactStagingDirectory)'
+    folderName: 'Testing'
