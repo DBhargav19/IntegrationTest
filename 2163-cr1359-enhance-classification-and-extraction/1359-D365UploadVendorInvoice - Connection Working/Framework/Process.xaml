@@ -1,0 +1,1531 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:sc="clr-namespace:System.ComponentModel;assembly=System.ComponentModel.TypeConverter" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:sd1="clr-namespace:System.Data;assembly=Studio.Generated.TypedDataRow1" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:umas="clr-namespace:UiPath.MicrosoftOffice365.Activities.Sharepoint;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umase="clr-namespace:UiPath.MicrosoftOffice365.Activities.Sharepoint.Enums;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:umsm="clr-namespace:UiPath.MicrosoftOffice365.Sharepoint.Models;assembly=UiPath.MicrosoftOffice365" xmlns:umsmc="clr-namespace:UiPath.MicrosoftOffice365.Sharepoint.Models.Columns;assembly=UiPath.MicrosoftOffice365" xmlns:usau="clr-namespace:UiPath.Shared.Activities.Utils;assembly=UiPath.MicrosoftOffice365.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_TransactionNumber" Type="InArgument(x:Int32)" />
+    <x:Property Name="io_dt_OutputTemplate" Type="InOutArgument(sd:DataTable)" />
+    <x:Property Name="BreakTriggerScopeInArgument" Type="InArgument(x:String)" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>695.3333333333334,6000</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="50">
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Windows.Forms</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.Excel.Activities.Business</x:String>
+      <x:String>UiPath.Excel.Model</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>UiPath.Core.Activities.Orchestrator</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>UiPath.Mail</x:String>
+      <x:String>UiPath.Mail.SMTP.Activities</x:String>
+      <x:String>UiPath.Mail.Activities</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.DataTableUtilities</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Sharepoint</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Sharepoint.Enums</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Sharepoint.Models</x:String>
+      <x:String>UiPath.Shared.Activities.Utils</x:String>
+      <x:String>UiPath.Shared.Activities.ConnectionService.Contracts</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Sharepoint.Contracts</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="80">
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Windows.Forms</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>System.CodeDom</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Forms</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Core</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Linq.Parallel</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+      <AssemblyReference>System.Linq.Queryable</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>System.Runtime.InteropServices</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Data.SqlClient</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>Microsoft.Win32.Primitives</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.Private.Xml</AssemblyReference>
+      <AssemblyReference>UiPath.MicrosoftOffice365.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.MicrosoftOffice365</AssemblyReference>
+      <AssemblyReference>Studio.Generated.TypedDataRow1</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="705.3333333333334,5935.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="SharepointFileLink" />
+      <Variable x:TypeArguments="x:String" Name="InvoiceFileName" />
+      <Variable x:TypeArguments="scg:IEnumerable(ui:QueueItem)" Name="QueueItemS" />
+      <Variable x:TypeArguments="x:Boolean" Default="False" Name="duplicateOutput" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message Process Start" sap:VirtualizedContainerService.HintSize="643.3333333333334,175.33333333333334" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Started Process&quot;]" />
+    <Assign DisplayName="Assign Invoice file name" sap:VirtualizedContainerService.HintSize="643.3333333333334,116.66666666666667" sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[InvoiceFileName]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[(in_TransactionItem.SpecificContent("TargetFile").ToString).Split("\"c).Last]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Assign - Invoice Sharepoint Path" sap:VirtualizedContainerService.HintSize="643.3333333333334,116.66666666666667" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[SharepointFileLink]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_Config("SharepointInvoiceFolder").ToString + InvoiceFileName]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:LogMessage DisplayName="Log Message print inv no" sap:VirtualizedContainerService.HintSize="643.3333333333334,175.33333333333334" sap2010:WorkflowViewState.IdRef="LogMessage_13" Message="[&quot;Invoice number - &quot; + in_TransactionItem.SpecificContent(&quot;InvoiceID&quot;).ToString]" />
+    <ui:GetQueueItems Duration="{x:Null}" From="{x:Null}" Priority="{x:Null}" Skip="{x:Null}" TimeoutMS="{x:Null}" To="{x:Null}" Top="{x:Null}" DisplayName="Get Queue Item with Invoice Reference" FilterStrategy="Equals" sap:VirtualizedContainerService.HintSize="643.3333333333334,176" sap2010:WorkflowViewState.IdRef="GetQueueItems_1" QueueItemStates="InProgress, Successful" QueueName="[in_Config(&quot;OrchestratorQueueName&quot;).ToString]" Reference="[in_TransactionItem.Reference]" Result="[QueueItemS]" />
+    <ui:LogMessage DisplayName="Log Message Queue items count" sap:VirtualizedContainerService.HintSize="643.3333333333334,175.33333333333334" sap2010:WorkflowViewState.IdRef="LogMessage_3" Message="[&quot;Queue items count &quot; + QueueItemS.Count.ToString]" />
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[io_dt_OutputTemplate]" DisplayName="For Each Row in Data Table duplicate" sap:VirtualizedContainerService.HintSize="643.3333333333334,762" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+      <ui:ForEachRow.Body>
+        <ActivityAction x:TypeArguments="sd:DataRow">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Body duplicate" sap:VirtualizedContainerService.HintSize="609.3333333333334,563.3333333333334" sap2010:WorkflowViewState.IdRef="Sequence_12">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:IfElseIf DisplayName="Else If duplicate" sap:VirtualizedContainerService.HintSize="547.3333333333334,475.3333333333333" sap2010:WorkflowViewState.IdRef="IfElseIf_1">
+              <ui:IfElseIf.ConditionBlocks>
+                <sc:BindingList x:TypeArguments="ui:IfElseIfBlock" AllowEdit="True" AllowNew="True" AllowRemove="True" RaiseListChangedEvents="True">
+                  <ui:IfElseIfBlock BlockType="If" Condition="[CurrentRow(&quot;InvoiceID&quot;).ToString = in_TransactionItem.SpecificContent(&quot;InvoiceID&quot;).ToString]" sap2010:WorkflowViewState.IdRef="IfElseIfBlock_1">
+                    <ui:IfElseIfBlock.Then>
+                      <Sequence DisplayName="Body duplicate2" sap:VirtualizedContainerService.HintSize="496,252.66666666666666" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <Assign DisplayName="Assign duplicate check" sap:VirtualizedContainerService.HintSize="434,116.66666666666667" sap2010:WorkflowViewState.IdRef="Assign_4">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:Boolean">[duplicateOutput]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <ui:Break sap:VirtualizedContainerService.HintSize="434,48" sap2010:WorkflowViewState.IdRef="Break_1" />
+                      </Sequence>
+                    </ui:IfElseIfBlock.Then>
+                  </ui:IfElseIfBlock>
+                </sc:BindingList>
+              </ui:IfElseIf.ConditionBlocks>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:IfElseIf>
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEachRow.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:ForEachRow>
+    <If Condition="[QueueItemS.Count &gt; 1 or duplicateOutput]" DisplayName="If Transaction Status is InProgress &amp; Success then it is already created" sap:VirtualizedContainerService.HintSize="643.3333333333334,4074" sap2010:WorkflowViewState.IdRef="If_2">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Then>
+        <Sequence DisplayName="Flag that All PDFs aren't processed" sap:VirtualizedContainerService.HintSize="416,877.3333333333334" sap2010:WorkflowViewState.IdRef="Sequence_6">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" ContinueOnError="{x:Null}" Email="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" Port="{x:Null}" ReplyTo="{x:Null}" Result="{x:Null}" SecurePassword="{x:Null}" TimeoutMS="{x:Null}" UseOAuth="{x:Null}" Body="[&quot;Hi, &quot; &amp; Environment.NewLine &amp;&#xA;&quot; The invoice below was not processed because the bot detected a duplicate of it&quot; &amp; Environment.NewLine &amp;&#xA;&quot; Invoice No-&quot; &amp; in_TransactionItem.SpecificContent(&quot;InvoiceID&quot;).ToString &amp;&#xA;&quot; Vendor Id-&quot; &amp; in_TransactionItem.SpecificContent(&quot;VendorId&quot;).ToString &amp;&#xA;&quot; Invoice Date-&quot; &amp; in_TransactionItem.SpecificContent(&quot;InvoiceDate&quot;).ToString &amp;&#xA;&quot; Invoice Link-&quot; &amp; SharepointFileLink &amp;&#xA;&quot; &quot;]" DisplayName="Send SMTP Mail Message - Invoice already processed" EnableSSL="True" From="[in_Config(&quot;BOTEmailId&quot;).ToString]" sap:VirtualizedContainerService.HintSize="354,180" sap2010:WorkflowViewState.IdRef="SendMail_1" IgnoreCRL="False" IsBodyHtml="True" SecureConnection="None" Server="Internalsmtprelay.media.global.loc" Subject="[&quot;1359 D365 upload failed - Suspect Duplicate Invoice &quot; &amp; in_TransactionItem.SpecificContent(&quot;InvoiceID&quot;).ToString]" To="[in_Config(&quot;ApplicationFailedEmail&quot;).ToString]">
+            <ui:SendMail.Files>
+              <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4" />
+            </ui:SendMail.Files>
+          </ui:SendMail>
+          <umas:UpdateListItemConnections x:TypeArguments="sd1:DataRow1" ConnectionAccountName="{x:Null}" ContinueOnError="{x:Null}" Result="{x:Null}" AuthScopesInvalid="False" BrowserListFriendlyName="1359_Tracker1" BrowserListId="b4954397-d7d1-4e8d-8513-323ae6b2ab24" BrowserSiteUrl="globalappsportal.sharepoint.com,866e0f83-e7b3-4239-b64a-8fe21658b491,4f0e9026-6216-45ad-9964-78f02602ff80" ConnectionId="0af853ca-6880-4b37-b146-12314a54207c" DisplayName="Update Single List Item" sap:VirtualizedContainerService.HintSize="354,320" sap2010:WorkflowViewState.IdRef="UpdateListItemConnections`1_1" ItemId="[in_TransactionItem.SpecificContent(&quot;ListItemID&quot;).ToString]" ItemSelectionMode="Browse" UseConnectionService="True">
+            <umas:UpdateListItemConnections.AllColumns>
+              <x:Array Type="umsm:Office365SharepointListColumnSlim">
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Title" Guid="fa564e0f-0c70-4ab9-b863-0177e6ddd247" IsRequired="False" Name="Title" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Compliance Asset Id" Guid="3a6b296c-3f50-445c-a13f-9c679ea9dda3" IsRequired="False" Name="ComplianceAssetId" ReadOnly="True" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="EmailSender" Guid="dd1de261-ce83-4489-99d4-eb4e8d35ae0a" IsRequired="False" Name="EmailSender" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="abc" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="EmailSubject" Guid="0b9ceb45-a447-4975-8752-dcc47ff21524" IsRequired="False" Name="EmailSubject" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="adla.mm@gmal.com" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="EmailTimestamp" Guid="33b8f2f8-747f-4b2a-9065-103540da2dd7" IsRequired="False" Name="EmailTimestamp" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="SubjMatch" Guid="6632a604-1dc7-4875-9911-db98857acacb" IsRequired="False" Name="SubjMatch" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Attachment" Guid="b6f06ed7-edb3-4870-85f2-07d792331233" IsRequired="False" Name="Attachment" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="AttFileName" Guid="cc9d456e-9e5d-402e-9982-4a80734cf49b" IsRequired="False" Name="AttFileName" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="msgAttachmentCount" Guid="c3307ae4-b66c-487e-8041-e34700a2ff65" IsRequired="False" Name="msgAttachmentCount" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="msgReference" Guid="23678c4e-14cd-4ac9-b1b9-c86e0e15dc61" IsRequired="False" Name="msgReference" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="msgReferenceAttNo" Guid="5e9c93ff-c45a-4341-89f9-d61739379554" IsRequired="False" Name="msgReferenceAttNo" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ClassificationAuto" Guid="d434bfb1-2044-4610-aaa5-d8aa80dc017a" IsRequired="False" Name="ClassificationAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Invoice" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ClassificationConf" Guid="8f3b2d3a-eb7c-478e-b5f8-a87696c6cf69" IsRequired="False" Name="ClassificationConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.96389616" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ClassificationAC" Guid="0671b275-f9e8-4ef3-ac71-2fbe8a22e218" IsRequired="False" Name="ClassificationAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ClassifiedByAC" Guid="9b3fbd7e-ad23-4a76-94d7-4da8f4902130" IsRequired="False" Name="ClassifiedByAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="No" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ExtractionAuto" Guid="1067191c-c0e4-487c-b08c-84cb4d658190" IsRequired="False" Name="ExtractionAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="No" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ExtractionByAC" Guid="e933af93-6173-4549-8a8d-65518d0e1813" IsRequired="False" Name="ExtractionByAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Yes" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="InvoiceNoAuto" Guid="7c3d6451-fdc6-4f8f-8268-4b43b832ebd3" IsRequired="False" Name="InvoiceNoAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="14737483823" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="InvoiceNoConf" Guid="7e28051c-054f-4a86-a7d5-454ad70417c4" IsRequired="False" Name="InvoiceNoConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.99460196" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="InvoiceNoAC" Guid="4c6a4bb6-22d0-4abf-93cb-7b69210ef410" IsRequired="False" Name="InvoiceNoAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="14737483823" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="VendorNameAuto" Guid="cbd5f2c2-49fd-4321-a825-3977c8ad6c4f" IsRequired="False" Name="VendorNameAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Adobe Inc." />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Title" Guid="bc91a437-52e7-49e1-8c4e-4698904b2b6d" IsRequired="False" Name="LinkTitleNoMenu" ReadOnly="True" Type="DefaultValue">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Title" Guid="82642ec8-ef9b-478f-acf9-31f7d45fbc31" IsRequired="False" Name="LinkTitle" ReadOnly="True" Type="DefaultValue">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="VendorNameConf" Guid="91dfc864-b64b-47f9-b52f-c494719dfe13" IsRequired="False" Name="VendorNameConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.99503785" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="VendorNameAC" Guid="9caf8437-985a-45fa-b9c4-c4a1a9ef5001" IsRequired="False" Name="VendorNameAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Adobe Inc." />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="TotalAuto" Guid="32c4bf07-898c-4421-9713-6560d2dae15c" IsRequired="False" Name="TotalAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="222400.00" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="TotalConf" Guid="8198f7e7-3b93-4e8f-97a0-902bcc784756" IsRequired="False" Name="TotalConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.9984237" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="TotalAC" Guid="618f698e-873f-4578-af9e-63e1119f43b6" IsRequired="False" Name="TotalAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="222400.00" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="DateAuto" Guid="b797b6d3-1c3b-4833-bf30-bc36be4e43a3" IsRequired="False" Name="DateAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="2023-02-24" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="DateConf" Guid="c5d78e8e-de23-4a6d-bb29-8fa7e028832c" IsRequired="False" Name="DateConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.9981787" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="DateAC" Guid="c04e0269-c0f3-497b-8033-d16394f6c366" IsRequired="False" Name="DateAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="2023-02-24" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BillingNameAuto" Guid="35155413-dc13-49e1-beeb-eee5580588d7" IsRequired="False" Name="BillingNameAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="MERKLE BUSINESS INFORMATION CONSULTANCY (SHANGHAI) LTD." />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BillingNameConf" Guid="25955d2d-b76b-4212-bfb4-a9a0a1efbcef" IsRequired="False" Name="BillingNameConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.9874343" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BillingNameAC" Guid="ae459bb8-3c7b-49be-ae3b-977186e28e95" IsRequired="False" Name="BillingNameAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="MERKLE BUSINESS INFORMATION CONSULTANCY (SHANGHAI) LTD." />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BillingAddrAuto" Guid="016cd6d5-b844-4653-bda0-d430af488808" IsRequired="False" Name="BillingAddrAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Building 6 Lane 11 F 3611 Zhangyang Rd 200136 SHANGHAI CHINA" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BillingAddrConf" Guid="0e981557-76f1-4acb-bac5-ac13d18a552f" IsRequired="False" Name="BillingAddrConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.98804885" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BillingAddrAC" Guid="f0d6d732-6bb6-4b0f-b2ec-64e6a6df99b1" IsRequired="False" Name="BillingAddrAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Building 6 Lane 11 F 3611 Zhangyang Rd 200136 SHANGHAI CHINA" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="DueDateAuto" Guid="7e4cecdb-5de7-43a0-ad6e-5aff7497a9e6" IsRequired="False" Name="DueDateAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="2023-04-25" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="DueDateConf" Guid="6097a20b-47b1-43e3-9741-6afb71b8cfa8" IsRequired="False" Name="DueDateConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.9995134" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="DueDateAC" Guid="bea3a37f-0968-4cb2-b2bc-a9845fc66a0f" IsRequired="False" Name="DueDateAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="2023-04-25" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Currency" Guid="54639c60-7cbd-4f71-98ae-f16f916e0fd5" IsRequired="False" Name="Currency" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="USD" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="CurrencyConf" Guid="e7fb8e92-f7e9-4d64-a0e4-444180026b34" IsRequired="False" Name="CurrencyConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.9939051" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="CurrencyAC" Guid="10a1924c-9f49-4eb2-988c-87397967cd7f" IsRequired="False" Name="CurrencyAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="USD" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="PaymentTermsAuto" Guid="346f7ca6-6a57-435c-ae0f-ed5a61890c09" IsRequired="False" Name="PaymentTermsAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Net 60 days" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BillingNameAC2" Guid="b15e9b5d-56c2-4dc1-b2b0-c71d8334859b" IsRequired="False" Name="BillingNameAC2" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BillingAddrAC3" Guid="e0a036fb-2d5e-4d89-ba1d-942c093edb00" IsRequired="False" Name="BillingAddrAC3" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BcurrencyAC" Guid="aac9d486-737c-4a4d-ba7d-bdb751c20d03" IsRequired="False" Name="BcurrencyAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="VendorCodeAuto" Guid="6965695a-0d70-4a54-a2f3-8a7779e4e7e9" IsRequired="False" Name="VendorCodeAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="VendorCodeAC" Guid="1ea41198-44c6-4bad-b4dd-9f84f2895b79" IsRequired="False" Name="VendorCodeAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Comment" Guid="217cd487-531c-44f3-967c-69eacd8954ec" IsRequired="False" Name="Comment" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="D365InvoiceReference" Guid="38448664-a05c-46d3-a6c1-f2c7d3ce6df4" IsRequired="False" Name="D365InvoiceReference" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="D365UploadStatus" Guid="80f6a44c-35f2-4f96-b09f-bc363c1ded6f" IsRequired="False" Name="D365UploadStatus" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="TempFilePath" Guid="7ed858af-89c1-4368-822c-a99d05f77050" IsRequired="False" Name="TempFilePath" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="SharepointFilePath" Guid="80f386c1-0ea2-4ec6-9c65-5d2fb0a847c2" IsRequired="False" Name="SharepointFilePath" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="PONumberAuto" Guid="5120d1da-d693-41a3-8b3d-c976b058f684" IsRequired="False" Name="PONumberAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="PONumberConf" Guid="e8b399f6-32a0-4e2a-b07c-a0128fa67d21" IsRequired="False" Name="PONumberConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="PONumberAC" Guid="2969ee56-e782-4baf-b3ed-e30c3ac2d001" IsRequired="False" Name="PONumberAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="MissingFields" Guid="c224eeb4-94a0-4834-8299-3a56ad2d9896" IsRequired="False" Name="MissingFields" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="LowConfidenceFields" Guid="bbb8b328-0b47-4191-a677-47c1911d0a19" IsRequired="False" Name="LowConfidenceFields" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ExtractionComments" Guid="2b4099a9-3292-4ed0-815c-7fc3f386259b" IsRequired="False" Name="ExtractionComments" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ClassificationComments" Guid="36eb9b6d-228a-4f81-817d-c80e26461a64" IsRequired="False" Name="ClassificationComments" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ID" Guid="1d22ea11-1e32-424e-89ab-9fedbadb6ce1" IsRequired="False" Name="ID" ReadOnly="True" Type="DefaultValue">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="1" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Content Type" Guid="c042a256-787d-4a6f-8a8a-cf6ab767f12d" IsRequired="False" Name="ContentType" ReadOnly="False" Type="DefaultValue">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Item" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Modified" Guid="28cf69c5-fa48-462a-b5cd-27b6f9d2bd5f" IsRequired="False" Name="Modified" ReadOnly="True" Type="DateTime">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="07/08/2024 19:38:16" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Created" Guid="8c06beca-0777-48f7-91c7-6da68bc07b69" IsRequired="False" Name="Created" ReadOnly="True" Type="DateTime">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="07/05/2024 10:45:23" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" DisplayName="Created By" Guid="1df5e554-ec7e-46a6-901d-d85a3881cb18" IsRequired="False" LookupListId="__PERSON_OR_GROUP__" Name="Author" ReadOnly="True" Type="PersonOrGroup">
+                  <umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                    <umsmc:PersonOrGroupColumnMetadata ChooseFromType="peopleAndGroups" MultiSelect="False" />
+                  </umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Suresh Kumar M G" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" DisplayName="Modified By" Guid="d31655d1-1d5b-4511-95a1-7a09e9b75bf2" IsRequired="False" LookupListId="__PERSON_OR_GROUP__" Name="Editor" ReadOnly="True" Type="PersonOrGroup">
+                  <umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                    <umsmc:PersonOrGroupColumnMetadata ChooseFromType="peopleAndGroups" MultiSelect="False" />
+                  </umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Aditya Jain" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Attachments" Guid="67df98f4-9dec-48ff-a553-29bece9c5bf4" IsRequired="False" Name="Attachments" ReadOnly="False" Type="DefaultValue">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="False" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Edit" Guid="503f1caa-358e-4918-9094-4a2cdc4bc034" IsRequired="False" Name="Edit" ReadOnly="True" Type="DefaultValue">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Type" Guid="081c6e4c-5c14-4f20-b23e-1a71ceb6a67c" IsRequired="False" Name="DocIcon" ReadOnly="True" Type="DefaultValue">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Item Child Count" Guid="b824e17e-a1b3-426e-aecf-f0184d900485" IsRequired="False" LookupListId="" Name="ItemChildCount" ReadOnly="True" Type="Lookup">
+                  <umsm:Office365SharepointListColumnSlim.LookupColumn>
+                    <umsmc:LookupColumnMetadata ColumnName="ItemChildCount" MultiSelect="False" />
+                  </umsm:Office365SharepointListColumnSlim.LookupColumn>
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Folder Child Count" Guid="960ff01f-2b6d-4f1b-9c3f-e19ad8927341" IsRequired="False" LookupListId="" Name="FolderChildCount" ReadOnly="True" Type="Lookup">
+                  <umsm:Office365SharepointListColumnSlim.LookupColumn>
+                    <umsmc:LookupColumnMetadata ColumnName="FolderChildCount" MultiSelect="False" />
+                  </umsm:Office365SharepointListColumnSlim.LookupColumn>
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="App Created By" Guid="6bfaba20-36bf-44b5-a1b2-eb6346d49716" IsRequired="False" LookupListId="AppPrincipals" Name="AppAuthor" ReadOnly="True" Type="Lookup">
+                  <umsm:Office365SharepointListColumnSlim.LookupColumn>
+                    <umsmc:LookupColumnMetadata ColumnName="Title" MultiSelect="False" />
+                  </umsm:Office365SharepointListColumnSlim.LookupColumn>
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="App Modified By" Guid="e08400f3-c779-4ed2-a18c-ab7f34caa318" IsRequired="False" LookupListId="AppPrincipals" Name="AppEditor" ReadOnly="True" Type="Lookup">
+                  <umsm:Office365SharepointListColumnSlim.LookupColumn>
+                    <umsmc:LookupColumnMetadata ColumnName="Title" MultiSelect="False" />
+                  </umsm:Office365SharepointListColumnSlim.LookupColumn>
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+              </x:Array>
+            </umas:UpdateListItemConnections.AllColumns>
+            <umas:UpdateListItemConnections.ListItemBackup>
+              <usau:BackupSlot x:TypeArguments="umase:ItemSelectionMode" StoredValue="Browse">
+                <usau:BackupSlot.BackupValues>
+                  <scg:Dictionary x:TypeArguments="umase:ItemSelectionMode, scg:List(x:Object)" />
+                </usau:BackupSlot.BackupValues>
+              </usau:BackupSlot>
+            </umas:UpdateListItemConnections.ListItemBackup>
+            <umas:UpdateListItemConnections.ListNameOrId>
+              <InArgument x:TypeArguments="x:String" />
+            </umas:UpdateListItemConnections.ListNameOrId>
+            <umas:UpdateListItemConnections.SiteUrl>
+              <InArgument x:TypeArguments="x:String" />
+            </umas:UpdateListItemConnections.SiteUrl>
+            <umas:UpdateListItemConnections.State>
+              <umas:ActivityState>
+                <umas:ActivityState.SelectedFields>
+                  <scg:List x:TypeArguments="umas:DynamicField" Capacity="1">
+                    <umas:DynamicField Id="80f6a44c-35f2-4f96-b09f-bc363c1ded6f" Name="D365UploadStatus">
+                      <umas:DynamicField.ArgumentValue>
+                        <InArgument x:TypeArguments="x:String">Duplicate</InArgument>
+                      </umas:DynamicField.ArgumentValue>
+                    </umas:DynamicField>
+                  </scg:List>
+                </umas:ActivityState.SelectedFields>
+              </umas:ActivityState>
+            </umas:UpdateListItemConnections.State>
+          </umas:UpdateListItemConnections>
+          <ui:LogMessage DisplayName="Log Message found duplicate" sap:VirtualizedContainerService.HintSize="354,175.33333333333334" sap2010:WorkflowViewState.IdRef="LogMessage_4" Message="[&quot;Found duplicate&quot;]" />
+          <Throw DisplayName="Throw - Business exception" Exception="[New BusinessRuleException(&quot;Duplicate Invoice - &quot; + SharepointFileLink )]" sap:VirtualizedContainerService.HintSize="354,114" sap2010:WorkflowViewState.IdRef="Throw_1" />
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="552,3035" sap2010:WorkflowViewState.IdRef="Sequence_7">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:String" Name="VendorId" />
+            <Variable x:TypeArguments="x:String" Name="VendorName" />
+            <Variable x:TypeArguments="x:String" Name="InvoiceID" />
+            <Variable x:TypeArguments="x:String" Name="InvoiceDescription" />
+            <Variable x:TypeArguments="x:String" Name="InvoiceDate" />
+            <Variable x:TypeArguments="x:String" Name="PostingDate" />
+            <Variable x:TypeArguments="x:String" Name="LineReference" />
+            <Variable x:TypeArguments="x:String" Name="LineDescription" />
+            <Variable x:TypeArguments="x:String" Name="ItemDescription" />
+            <Variable x:TypeArguments="x:String" Name="ItemID" />
+            <Variable x:TypeArguments="x:String" Name="ProcurementCategory" />
+            <Variable x:TypeArguments="x:String" Name="PayMode" />
+            <Variable x:TypeArguments="x:String" Name="Qty" />
+            <Variable x:TypeArguments="x:String" Name="Unit" />
+            <Variable x:TypeArguments="x:String" Name="UnitPrice" />
+            <Variable x:TypeArguments="x:String" Name="NetAmount" />
+            <Variable x:TypeArguments="x:String" Name="Currency" />
+            <Variable x:TypeArguments="x:String" Name="TaxGroup" />
+            <Variable x:TypeArguments="x:String" Name="SourceSystemPONumber" />
+            <Variable x:TypeArguments="x:String" Name="ProjectID" />
+            <Variable x:TypeArguments="x:String" Name="ProjActivityNumber" />
+            <Variable x:TypeArguments="x:String" Name="ProjCategoryID" />
+            <Variable x:TypeArguments="x:String" Name="FinDimCostCenter" />
+            <Variable x:TypeArguments="x:String" Name="FinDimProject" />
+            <Variable x:TypeArguments="x:String" Name="FinDimService" />
+            <Variable x:TypeArguments="x:String" Name="FinDimChannel" />
+            <Variable x:TypeArguments="x:String" Name="FinDimVendor" />
+            <Variable x:TypeArguments="x:String" Name="FinDimAnalysisCode" />
+            <Variable x:TypeArguments="x:String" Name="FixedAssetGroup" />
+            <Variable x:TypeArguments="x:String" Name="FixedAssetID" />
+            <Variable x:TypeArguments="x:String" Name="AEGExtCaseManageID" />
+            <Variable x:TypeArguments="x:String" Name="TableRefID" />
+            <Variable x:TypeArguments="x:String" Name="IMPORTEDINVOICEAMOUNT" />
+            <Variable x:TypeArguments="x:String" Name="TaxItemGroup" />
+            <Variable x:TypeArguments="x:String" Name="FindimClient" />
+            <Variable x:TypeArguments="x:String" Name="FinDimProfitCenter" />
+            <Variable x:TypeArguments="x:String" Name="InvDueDate" />
+          </Sequence.Variables>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:LogMessage DisplayName="Log Message adding data to excel" sap:VirtualizedContainerService.HintSize="510,141" sap2010:WorkflowViewState.IdRef="LogMessage_5" Message="[&quot;Log Message adding data to datatable&quot;]" />
+          <ui:MultipleAssign DisplayName="Multiple Assign- Creating and Assinging Values " sap:VirtualizedContainerService.HintSize="510,1232" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+            <ui:MultipleAssign.AssignOperations>
+              <scg:List x:TypeArguments="ui:AssignOperation" Capacity="64">
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[VendorId]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("VendorId").ToString]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[VendorName]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[InvoiceID]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("InvoiceID").ToString]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[InvoiceDescription]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">[(in_TransactionItem.SpecificContent("TargetFile").ToString).Split("\"c).Last]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_37">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[InvDueDate]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[InvoiceDate]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">[CDate(in_TransactionItem.SpecificContent("InvoiceDate")).ToString("dd/MM/yyyy")]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_6">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[PostingDate]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_7">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[LineReference]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">1</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_8">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[LineDescription]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">[SharepointFileLink]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_9">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[ItemDescription]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_10">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[ItemID]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_11">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[ProcurementCategory]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">Pending Inv Process Only</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_12">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[PayMode]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_13">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[Qty]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">1</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_14">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[Unit]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">Each</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_15">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[UnitPrice]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">1</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_16">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[NetAmount]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">1</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_17">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[Currency]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("Currrency").ToString]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_18">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[TaxGroup]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_19">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[SourceSystemPONumber]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_20">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[ProjectID]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_21">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[ProjActivityNumber]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_22">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[ProjCategoryID]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_23">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[FinDimCostCenter]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">A22100</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_24">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[FinDimProject]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_25">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[FinDimService]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_26">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[FinDimChannel]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_27">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[FinDimVendor]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_28">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[FinDimAnalysisCode]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_29">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[FixedAssetGroup]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_30">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[FixedAssetID]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_31">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[AEGExtCaseManageID]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("InvoiceID").ToString]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_32">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[TableRefID]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_33">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[IMPORTEDINVOICEAMOUNT]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">[in_TransactionItem.SpecificContent("InvoiceValue").ToString]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_34">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[TaxItemGroup]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_35">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[FindimClient]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_36">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:String">[FinDimProfitCenter]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:String">B30100</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+              </scg:List>
+            </ui:MultipleAssign.AssignOperations>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:MultipleAssign>
+          <If Condition="[IsNothing(in_TransactionItem.SpecificContent(&quot;InvDueDate&quot;)) = false]" DisplayName="If - DueDate not null" sap:VirtualizedContainerService.HintSize="510,762" sap2010:WorkflowViewState.IdRef="If_3">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If.Then>
+              <Sequence sap:VirtualizedContainerService.HintSize="476,351" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="x:String" Name="DueDate" />
+                </Sequence.Variables>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:LogMessage DisplayName="Log Message  Due Date" sap:VirtualizedContainerService.HintSize="434,141" sap2010:WorkflowViewState.IdRef="LogMessage_11" Message="[CDate(in_TransactionItem.SpecificContent(&quot;InvDueDate&quot;)).ToString(&quot;dd/MM/yyyy&quot;)]" />
+                <Assign DisplayName="Assign due date" sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_3">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[InvDueDate]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">[CDate(in_TransactionItem.SpecificContent("InvDueDate")).ToString("dd/MM/yyyy")]</InArgument>
+                  </Assign.Value>
+                </Assign>
+              </Sequence>
+            </If.Then>
+            <If.Else>
+              <Sequence sap:VirtualizedContainerService.HintSize="376,229" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:LogMessage DisplayName="Log Message no due date" sap:VirtualizedContainerService.HintSize="334,141" sap2010:WorkflowViewState.IdRef="LogMessage_12" Message="[&quot;No due date&quot;]" />
+              </Sequence>
+            </If.Else>
+          </If>
+          <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{VendorId, VendorName, InvoiceID, InvoiceDescription, InvoiceDate, InvDueDate, PostingDate, LineReference, LineDescription, ItemDescription, ItemID, ProcurementCategory, PayMode, Qty, Unit, UnitPrice, NetAmount, Currency, TaxGroup, TaxItemGroup, SourceSystemPONumber, ProjectID, ProjActivityNumber, ProjCategoryID, FinDimCostCenter, FinDimProfitCenter, FindimClient, FinDimProject, FinDimService, FinDimChannel, FinDimVendor, FinDimAnalysisCode, FixedAssetGroup, FixedAssetID, AEGExtCaseManageID, TableRefID, IMPORTEDINVOICEAMOUNT}]" DataTable="[io_dt_OutputTemplate]" DisplayName="Add Data Row- Appending Data to columns" sap:VirtualizedContainerService.HintSize="510,186" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+          <umas:UpdateListItemConnections x:TypeArguments="sd1:DataRow1" ConnectionAccountName="{x:Null}" ContinueOnError="{x:Null}" Result="{x:Null}" AuthScopesInvalid="False" BrowserListFriendlyName="1359_Tracker1" BrowserListId="b4954397-d7d1-4e8d-8513-323ae6b2ab24" BrowserSiteUrl="globalappsportal.sharepoint.com,866e0f83-e7b3-4239-b64a-8fe21658b491,4f0e9026-6216-45ad-9964-78f02602ff80" ConnectionId="0af853ca-6880-4b37-b146-12314a54207c" DisplayName="Update Single List Item" sap:VirtualizedContainerService.HintSize="510,285" sap2010:WorkflowViewState.IdRef="UpdateListItemConnections`1_2" ItemId="[in_TransactionItem.SpecificContent(&quot;ListItemID&quot;).ToString]" ItemSelectionMode="Browse" UseConnectionService="True">
+            <umas:UpdateListItemConnections.AllColumns>
+              <x:Array Type="umsm:Office365SharepointListColumnSlim">
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Title" Guid="fa564e0f-0c70-4ab9-b863-0177e6ddd247" IsRequired="False" Name="Title" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Compliance Asset Id" Guid="3a6b296c-3f50-445c-a13f-9c679ea9dda3" IsRequired="False" Name="ComplianceAssetId" ReadOnly="True" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="EmailSender" Guid="dd1de261-ce83-4489-99d4-eb4e8d35ae0a" IsRequired="False" Name="EmailSender" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="abc" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="EmailSubject" Guid="0b9ceb45-a447-4975-8752-dcc47ff21524" IsRequired="False" Name="EmailSubject" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="adla.mm@gmal.com" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="EmailTimestamp" Guid="33b8f2f8-747f-4b2a-9065-103540da2dd7" IsRequired="False" Name="EmailTimestamp" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="SubjMatch" Guid="6632a604-1dc7-4875-9911-db98857acacb" IsRequired="False" Name="SubjMatch" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Attachment" Guid="b6f06ed7-edb3-4870-85f2-07d792331233" IsRequired="False" Name="Attachment" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="AttFileName" Guid="cc9d456e-9e5d-402e-9982-4a80734cf49b" IsRequired="False" Name="AttFileName" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="msgAttachmentCount" Guid="c3307ae4-b66c-487e-8041-e34700a2ff65" IsRequired="False" Name="msgAttachmentCount" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="msgReference" Guid="23678c4e-14cd-4ac9-b1b9-c86e0e15dc61" IsRequired="False" Name="msgReference" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="msgReferenceAttNo" Guid="5e9c93ff-c45a-4341-89f9-d61739379554" IsRequired="False" Name="msgReferenceAttNo" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ClassificationAuto" Guid="d434bfb1-2044-4610-aaa5-d8aa80dc017a" IsRequired="False" Name="ClassificationAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Invoice" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ClassificationConf" Guid="8f3b2d3a-eb7c-478e-b5f8-a87696c6cf69" IsRequired="False" Name="ClassificationConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.96389616" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ClassificationAC" Guid="0671b275-f9e8-4ef3-ac71-2fbe8a22e218" IsRequired="False" Name="ClassificationAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ClassifiedByAC" Guid="9b3fbd7e-ad23-4a76-94d7-4da8f4902130" IsRequired="False" Name="ClassifiedByAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="No" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ExtractionAuto" Guid="1067191c-c0e4-487c-b08c-84cb4d658190" IsRequired="False" Name="ExtractionAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="No" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ExtractionByAC" Guid="e933af93-6173-4549-8a8d-65518d0e1813" IsRequired="False" Name="ExtractionByAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Yes" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="InvoiceNoAuto" Guid="7c3d6451-fdc6-4f8f-8268-4b43b832ebd3" IsRequired="False" Name="InvoiceNoAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="14737483823" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="InvoiceNoConf" Guid="7e28051c-054f-4a86-a7d5-454ad70417c4" IsRequired="False" Name="InvoiceNoConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.99460196" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="InvoiceNoAC" Guid="4c6a4bb6-22d0-4abf-93cb-7b69210ef410" IsRequired="False" Name="InvoiceNoAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="14737483823" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="VendorNameAuto" Guid="cbd5f2c2-49fd-4321-a825-3977c8ad6c4f" IsRequired="False" Name="VendorNameAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Adobe Inc." />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Title" Guid="bc91a437-52e7-49e1-8c4e-4698904b2b6d" IsRequired="False" Name="LinkTitleNoMenu" ReadOnly="True" Type="DefaultValue">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Title" Guid="82642ec8-ef9b-478f-acf9-31f7d45fbc31" IsRequired="False" Name="LinkTitle" ReadOnly="True" Type="DefaultValue">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="VendorNameConf" Guid="91dfc864-b64b-47f9-b52f-c494719dfe13" IsRequired="False" Name="VendorNameConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.99503785" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="VendorNameAC" Guid="9caf8437-985a-45fa-b9c4-c4a1a9ef5001" IsRequired="False" Name="VendorNameAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Adobe Inc." />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="TotalAuto" Guid="32c4bf07-898c-4421-9713-6560d2dae15c" IsRequired="False" Name="TotalAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="222400.00" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="TotalConf" Guid="8198f7e7-3b93-4e8f-97a0-902bcc784756" IsRequired="False" Name="TotalConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.9984237" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="TotalAC" Guid="618f698e-873f-4578-af9e-63e1119f43b6" IsRequired="False" Name="TotalAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="222400.00" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="DateAuto" Guid="b797b6d3-1c3b-4833-bf30-bc36be4e43a3" IsRequired="False" Name="DateAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="2023-02-24" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="DateConf" Guid="c5d78e8e-de23-4a6d-bb29-8fa7e028832c" IsRequired="False" Name="DateConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.9981787" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="DateAC" Guid="c04e0269-c0f3-497b-8033-d16394f6c366" IsRequired="False" Name="DateAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="2023-02-24" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BillingNameAuto" Guid="35155413-dc13-49e1-beeb-eee5580588d7" IsRequired="False" Name="BillingNameAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="MERKLE BUSINESS INFORMATION CONSULTANCY (SHANGHAI) LTD." />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BillingNameConf" Guid="25955d2d-b76b-4212-bfb4-a9a0a1efbcef" IsRequired="False" Name="BillingNameConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.9874343" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BillingNameAC" Guid="ae459bb8-3c7b-49be-ae3b-977186e28e95" IsRequired="False" Name="BillingNameAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="MERKLE BUSINESS INFORMATION CONSULTANCY (SHANGHAI) LTD." />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BillingAddrAuto" Guid="016cd6d5-b844-4653-bda0-d430af488808" IsRequired="False" Name="BillingAddrAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Building 6 Lane 11 F 3611 Zhangyang Rd 200136 SHANGHAI CHINA" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BillingAddrConf" Guid="0e981557-76f1-4acb-bac5-ac13d18a552f" IsRequired="False" Name="BillingAddrConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.98804885" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BillingAddrAC" Guid="f0d6d732-6bb6-4b0f-b2ec-64e6a6df99b1" IsRequired="False" Name="BillingAddrAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Building 6 Lane 11 F 3611 Zhangyang Rd 200136 SHANGHAI CHINA" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="DueDateAuto" Guid="7e4cecdb-5de7-43a0-ad6e-5aff7497a9e6" IsRequired="False" Name="DueDateAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="2023-04-25" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="DueDateConf" Guid="6097a20b-47b1-43e3-9741-6afb71b8cfa8" IsRequired="False" Name="DueDateConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.9995134" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="DueDateAC" Guid="bea3a37f-0968-4cb2-b2bc-a9845fc66a0f" IsRequired="False" Name="DueDateAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="2023-04-25" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Currency" Guid="54639c60-7cbd-4f71-98ae-f16f916e0fd5" IsRequired="False" Name="Currency" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="USD" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="CurrencyConf" Guid="e7fb8e92-f7e9-4d64-a0e4-444180026b34" IsRequired="False" Name="CurrencyConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0.9939051" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="CurrencyAC" Guid="10a1924c-9f49-4eb2-988c-87397967cd7f" IsRequired="False" Name="CurrencyAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="USD" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="PaymentTermsAuto" Guid="346f7ca6-6a57-435c-ae0f-ed5a61890c09" IsRequired="False" Name="PaymentTermsAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Net 60 days" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BillingNameAC2" Guid="b15e9b5d-56c2-4dc1-b2b0-c71d8334859b" IsRequired="False" Name="BillingNameAC2" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BillingAddrAC3" Guid="e0a036fb-2d5e-4d89-ba1d-942c093edb00" IsRequired="False" Name="BillingAddrAC3" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="BcurrencyAC" Guid="aac9d486-737c-4a4d-ba7d-bdb751c20d03" IsRequired="False" Name="BcurrencyAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="VendorCodeAuto" Guid="6965695a-0d70-4a54-a2f3-8a7779e4e7e9" IsRequired="False" Name="VendorCodeAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="VendorCodeAC" Guid="1ea41198-44c6-4bad-b4dd-9f84f2895b79" IsRequired="False" Name="VendorCodeAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Comment" Guid="217cd487-531c-44f3-967c-69eacd8954ec" IsRequired="False" Name="Comment" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="D365InvoiceReference" Guid="38448664-a05c-46d3-a6c1-f2c7d3ce6df4" IsRequired="False" Name="D365InvoiceReference" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="D365UploadStatus" Guid="80f6a44c-35f2-4f96-b09f-bc363c1ded6f" IsRequired="False" Name="D365UploadStatus" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="TempFilePath" Guid="7ed858af-89c1-4368-822c-a99d05f77050" IsRequired="False" Name="TempFilePath" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="SharepointFilePath" Guid="80f386c1-0ea2-4ec6-9c65-5d2fb0a847c2" IsRequired="False" Name="SharepointFilePath" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="PONumberAuto" Guid="5120d1da-d693-41a3-8b3d-c976b058f684" IsRequired="False" Name="PONumberAuto" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="PONumberConf" Guid="e8b399f6-32a0-4e2a-b07c-a0128fa67d21" IsRequired="False" Name="PONumberConf" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="PONumberAC" Guid="2969ee56-e782-4baf-b3ed-e30c3ac2d001" IsRequired="False" Name="PONumberAC" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="MissingFields" Guid="c224eeb4-94a0-4834-8299-3a56ad2d9896" IsRequired="False" Name="MissingFields" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="LowConfidenceFields" Guid="bbb8b328-0b47-4191-a677-47c1911d0a19" IsRequired="False" Name="LowConfidenceFields" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ExtractionComments" Guid="2b4099a9-3292-4ed0-815c-7fc3f386259b" IsRequired="False" Name="ExtractionComments" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ClassificationComments" Guid="36eb9b6d-228a-4f81-817d-c80e26461a64" IsRequired="False" Name="ClassificationComments" ReadOnly="False" Type="Text">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="ID" Guid="1d22ea11-1e32-424e-89ab-9fedbadb6ce1" IsRequired="False" Name="ID" ReadOnly="True" Type="DefaultValue">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="1" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Content Type" Guid="c042a256-787d-4a6f-8a8a-cf6ab767f12d" IsRequired="False" Name="ContentType" ReadOnly="False" Type="DefaultValue">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Item" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Modified" Guid="28cf69c5-fa48-462a-b5cd-27b6f9d2bd5f" IsRequired="False" Name="Modified" ReadOnly="True" Type="DateTime">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="07/08/2024 19:38:16" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Created" Guid="8c06beca-0777-48f7-91c7-6da68bc07b69" IsRequired="False" Name="Created" ReadOnly="True" Type="DateTime">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="07/05/2024 10:45:23" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" DisplayName="Created By" Guid="1df5e554-ec7e-46a6-901d-d85a3881cb18" IsRequired="False" LookupListId="__PERSON_OR_GROUP__" Name="Author" ReadOnly="True" Type="PersonOrGroup">
+                  <umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                    <umsmc:PersonOrGroupColumnMetadata ChooseFromType="peopleAndGroups" MultiSelect="False" />
+                  </umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Suresh Kumar M G" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" DisplayName="Modified By" Guid="d31655d1-1d5b-4511-95a1-7a09e9b75bf2" IsRequired="False" LookupListId="__PERSON_OR_GROUP__" Name="Editor" ReadOnly="True" Type="PersonOrGroup">
+                  <umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                    <umsmc:PersonOrGroupColumnMetadata ChooseFromType="peopleAndGroups" MultiSelect="False" />
+                  </umsm:Office365SharepointListColumnSlim.PersonOrGroup>
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="Aditya Jain" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Attachments" Guid="67df98f4-9dec-48ff-a553-29bece9c5bf4" IsRequired="False" Name="Attachments" ReadOnly="False" Type="DefaultValue">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="False" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Edit" Guid="503f1caa-358e-4918-9094-4a2cdc4bc034" IsRequired="False" Name="Edit" ReadOnly="True" Type="DefaultValue">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" LookupColumn="{x:Null}" LookupListId="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Type" Guid="081c6e4c-5c14-4f20-b23e-1a71ceb6a67c" IsRequired="False" Name="DocIcon" ReadOnly="True" Type="DefaultValue">
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Item Child Count" Guid="b824e17e-a1b3-426e-aecf-f0184d900485" IsRequired="False" LookupListId="" Name="ItemChildCount" ReadOnly="True" Type="Lookup">
+                  <umsm:Office365SharepointListColumnSlim.LookupColumn>
+                    <umsmc:LookupColumnMetadata ColumnName="ItemChildCount" MultiSelect="False" />
+                  </umsm:Office365SharepointListColumnSlim.LookupColumn>
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="Folder Child Count" Guid="960ff01f-2b6d-4f1b-9c3f-e19ad8927341" IsRequired="False" LookupListId="" Name="FolderChildCount" ReadOnly="True" Type="Lookup">
+                  <umsm:Office365SharepointListColumnSlim.LookupColumn>
+                    <umsmc:LookupColumnMetadata ColumnName="FolderChildCount" MultiSelect="False" />
+                  </umsm:Office365SharepointListColumnSlim.LookupColumn>
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="0" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="App Created By" Guid="6bfaba20-36bf-44b5-a1b2-eb6346d49716" IsRequired="False" LookupListId="AppPrincipals" Name="AppAuthor" ReadOnly="True" Type="Lookup">
+                  <umsm:Office365SharepointListColumnSlim.LookupColumn>
+                    <umsmc:LookupColumnMetadata ColumnName="Title" MultiSelect="False" />
+                  </umsm:Office365SharepointListColumnSlim.LookupColumn>
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+                <umsm:Office365SharepointListColumnSlim Choice="{x:Null}" PersonOrGroup="{x:Null}" DisplayName="App Modified By" Guid="e08400f3-c779-4ed2-a18c-ab7f34caa318" IsRequired="False" LookupListId="AppPrincipals" Name="AppEditor" ReadOnly="True" Type="Lookup">
+                  <umsm:Office365SharepointListColumnSlim.LookupColumn>
+                    <umsmc:LookupColumnMetadata ColumnName="Title" MultiSelect="False" />
+                  </umsm:Office365SharepointListColumnSlim.LookupColumn>
+                  <umsm:Office365SharepointListColumnSlim.Sample>
+                    <umsm:ColumnSample Value="{x:Null}" />
+                  </umsm:Office365SharepointListColumnSlim.Sample>
+                </umsm:Office365SharepointListColumnSlim>
+              </x:Array>
+            </umas:UpdateListItemConnections.AllColumns>
+            <umas:UpdateListItemConnections.ListItemBackup>
+              <usau:BackupSlot x:TypeArguments="umase:ItemSelectionMode" StoredValue="Browse">
+                <usau:BackupSlot.BackupValues>
+                  <scg:Dictionary x:TypeArguments="umase:ItemSelectionMode, scg:List(x:Object)" />
+                </usau:BackupSlot.BackupValues>
+              </usau:BackupSlot>
+            </umas:UpdateListItemConnections.ListItemBackup>
+            <umas:UpdateListItemConnections.ListNameOrId>
+              <InArgument x:TypeArguments="x:String" />
+            </umas:UpdateListItemConnections.ListNameOrId>
+            <umas:UpdateListItemConnections.SiteUrl>
+              <InArgument x:TypeArguments="x:String" />
+            </umas:UpdateListItemConnections.SiteUrl>
+            <umas:UpdateListItemConnections.State>
+              <umas:ActivityState>
+                <umas:ActivityState.SelectedFields>
+                  <scg:List x:TypeArguments="umas:DynamicField" Capacity="1">
+                    <umas:DynamicField Id="80f6a44c-35f2-4f96-b09f-bc363c1ded6f" Name="D365UploadStatus">
+                      <umas:DynamicField.ArgumentValue>
+                        <InArgument x:TypeArguments="x:String">Success</InArgument>
+                      </umas:DynamicField.ArgumentValue>
+                    </umas:DynamicField>
+                  </scg:List>
+                </umas:ActivityState.SelectedFields>
+              </umas:ActivityState>
+            </umas:UpdateListItemConnections.State>
+          </umas:UpdateListItemConnections>
+          <ui:LogMessage DisplayName="Log Message adding data to excel completed" sap:VirtualizedContainerService.HintSize="510,141" sap2010:WorkflowViewState.IdRef="LogMessage_6" Message="[&quot;Log Message adding data to datatable completed&quot;]" />
+        </Sequence>
+      </If.Else>
+    </If>
+  </Sequence>
+</Activity>

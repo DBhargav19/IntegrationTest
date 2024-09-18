@@ -1,0 +1,259 @@
+{
+  "exportedBy": null,
+  "bundleHash": null,
+  "version": "1.0.0.0",
+  "jitAssemblyCompilerCommands": [
+    {
+      "providerName": "TypedDataTable",
+      "typedDataTableDto": {
+        "id": 1,
+        "idRef": "UpdateListItemConnections`1_1",
+        "hash": "UpdateListItemConnections`1_1|DataRow|hzycpq61s88EzsxMu5J2WxE7J8Ramy9ufJbj6AwqD8",
+        "dataType": "System.Data.DataRow, System.Data.Common",
+        "columns": [
+          {
+            "columnName": "Attachment",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "AttFileName",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "BcurrencyAC",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "BillingAddrAC",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "BillingAddrAC3",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "BillingAddrAuto",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "BillingAddrConf",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "BillingNameAC",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "BillingNameAC2",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "BillingNameAuto",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "BillingNameConf",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "ClassificationAC",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "ClassificationAuto",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "ClassificationComments",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "ClassificationConf",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "ClassifiedByAC",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "Comment",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "Currency",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "CurrencyAC",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "CurrencyConf",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "D365InvoiceReference",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "D365UploadStatus",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "DateAC",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "DateAuto",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "DateConf",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "DueDateAC",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "DueDateAuto",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "DueDateConf",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "EmailSender",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "EmailSubject",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "EmailTimestamp",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "ExtractionAuto",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "ExtractionByAC",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "ExtractionComments",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "InvoiceNoAC",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "InvoiceNoAuto",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "InvoiceNoConf",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "LowConfidenceFields",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "MissingFields",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "msgAttachmentCount",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "msgReference",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "msgReferenceAttNo",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "PaymentTermsAuto",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "PONumberAC",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "PONumberAuto",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "PONumberConf",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "SharepointFilePath",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "SubjMatch",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "TempFilePath",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "Title",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "TotalAC",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "TotalAuto",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "TotalConf",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "VendorCodeAC",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "VendorCodeAuto",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "VendorNameAC",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "VendorNameAuto",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "VendorNameConf",
+            "dataType": "System.String, System.Private.CoreLib"
+          },
+          {
+            "columnName": "ID",
+            "dataType": "System.Object, System.Private.CoreLib"
+          }
+        ]
+      },
+      "entityAssemblyKey": {
+        "name": "Studio.Generated.TypedDataRow1",
+        "hash": "UpdateListItemConnections`1_1|DataRow|Kkf8r35P6L1eT6GXXag3Q557ySx8D7UbrpWCgn4",
+        "assemblyName": "Studio.Generated.TypedDataRow1"
+      }
+    }
+  ]
+}
