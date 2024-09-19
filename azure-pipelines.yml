@@ -20,7 +20,7 @@ steps:
 - task: UiPathPack@4
   inputs:
     versionType: 'AutoVersion'
-    projectJsonPath: '$(Build.SourcesDirectory)'
+    projectJsonPath: '$(Build.SourcesDirectory)\2163-cr1359-enhance-classification-and-extraction\1359-D365UploadVendorInvoice - Connection Working'
     outputPath: '$(Build.ArtifactStagingDirectory)\Output'
 - task: UiPathDeploy@4
   inputs:
