@@ -1,23 +1,17 @@
 {
-  "name": "DOM",
-  "projectId": "2ce110dc-5aef-484f-bbbc-f07a8705ba99",
-  "description": "Blank Process",
+  "name": "MicronTestCaseConversion Issue",
+  "projectId": "481a6852-e1ba-4e0d-a9d2-24dbbef7a06f",
+  "description": "Test Automation Project",
   "main": "Main.xaml",
   "dependencies": {
-    "UiPath.DocumentUnderstanding.Activities": "[2.12.1]",
-    "UiPath.DocumentUnderstanding.ML.Activities": "[1.31.2]",
-    "UiPath.Excel.Activities": "[2.16.1]",
-    "UiPath.IntelligentOCR.Activities": "[6.22.1]",
-    "UiPath.Mail.Activities": "[1.18.2]",
-    "UiPath.OCR.Activities": "[3.21.2]",
-    "UiPath.System.Activities": "[22.10.4]",
-    "UiPath.Testing.Activities": "[22.10.2]",
-    "UiPath.UIAutomation.Activities": "[22.10.4]"
+    "UiPath.System.Activities": "[23.10.6]",
+    "UiPath.Testing.Activities": "[23.10.1]",
+    "UiPath.UIAutomation.Activities": "[23.10.15]"
   },
   "webServices": [],
   "entitiesStores": [],
   "schemaVersion": "4.0",
-  "studioVersion": "22.10.4.0",
+  "studioVersion": "23.10.11.0",
   "projectVersion": "1.0.0",
   "runtimeOptions": {
     "autoDispose": false,
@@ -39,7 +33,7 @@
   },
   "designOptions": {
     "projectProfile": "Developement",
-    "outputType": "Process",
+    "outputType": "Tests",
     "libraryOptions": {
       "includeOriginalXaml": false,
       "privateWorkflows": []
@@ -47,18 +41,18 @@
     "processOptions": {
       "ignoredFiles": []
     },
-    "fileInfoCollection": [],
+    "fileInfoCollection": [
+      {
+        "editingStatus": "Publishable",
+        "testCaseId": "efb80500-70b8-4128-acbe-adf054453fb9",
+        "testCaseType": "TestCase",
+        "fileName": "TestCase.xaml"
+      }
+    ],
+    "modernBehavior": true,
     "saveToCloud": false
   },
   "expressionLanguage": "VisualBasic",
-  "entryPoints": [
-    {
-      "filePath": "Main.xaml",
-      "uniqueId": "cb488180-5d7c-4f53-8170-99df01ce3f69",
-      "input": [],
-      "output": []
-    }
-  ],
   "isTemplate": false,
   "templateProjectData": {},
   "publishData": {},
